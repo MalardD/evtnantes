@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Evènements Nantes</title>
+  <style>
+  #demo {
+	  font-family: 'Helvetica', Arial, sans-serif;
+	  text-align: center;
+	}
+	a {
+	  text-decoration: none;
+	  color: #f66;
+	}
+	li {
+	  line-height: 1.5em;
+	  margin-bottom: 20px;
+	}
+	.author, .date {
+	  font-weight: bold;
+	}
+	body{
+		background-image:url('Fetenationale17734.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;	
+	}
+	h1{
+		background-color: tomato;
+		font-family: 'Lobster'	;
+	}
+	
+  </style>
+  </head>
+  <body>
+
+  	<div id="demo">
+	  <h1>Nantes évènement</h1><br>
+	  
+	  
+	  	<ul style="list-style-type: none; padding-right: 5%; padding-left: 10%;">
+			<div class="row">
+	    		<li v-for="record in records">
+					<div class="col-2">
+						<div class="card" style="width: 22rem; height: 15rem;">
+							<div class="card-body">
+								<h5 class="card-title" style="background-color: tomato;"><pre>{{record.fields.nom}}</pre></h5><!--Rajoutez fields + le nom du champ pour afficher une valeur spécifique-->
+         						<p class="card-text"><pre>{{record.fields.ville}}</pre>
+         						<pre>{{record.fields.adresse}}</pre>
+         						<pre>{{record.fields.heure_debut}}</pre>
+         						<pre>{{record.fields.heure_fin}}</pre></p>
+							</div>
+						</div>
+					</div>
+				</li>
+			</div>
+		</ul>
+		
+	</div>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  	<script>
+
+				var apiURL = 'https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=244400404_agenda-evenements-nantes-nantes-metropole&facet=emetteur&facet=rubrique&facet=lieu&facet=ville&refine.emetteur=VILLE+DE+NANTES'
+				var apiKey = '576e8a7e29ebd0da2c774b9434d4534ed7099477';
+				var config = {
+	headers: {'Authorization': "bearer " + "576e8a7e29ebd0da2c774b9434d4534ed7099477"}
+	}
+
+			/**
+			 * Actual demo
+			 */
+
+			var demo = new Vue({
+
+				el: '#demo',
+
+				data: {
+					branches: ['master', 'dev'],
+					currentBranch: 'master',
+					records: []
+				},
+
+				created: function () {
+					this.fetchData()
+				},
+
+				watch: {
+					currentBranch: 'fetchData'
+				},
+
+				filters: {
+					truncate: function (v) {
+						var newline = v.indexOf('\n')
+						return newline > 0 ? v.slice(0, newline) : v
+					},
+					formatDate: function (v) {
+						return v.replace(/T|Z/g, ' ')
+					}
+				},
+
+				methods: {
+					fetchData: function () {
+							var self = this
+							axios.get(apiURL)
+									.then(function(response){
+											console.log(response)
+											self.records = response.data.records
+											
+									})
+									.catch(function(error){
+											console.log(error);
+									})
+								}
+						}
+			})
+		</script>
+  </body>
+</html>
+
