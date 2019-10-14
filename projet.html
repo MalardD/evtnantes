@@ -22,12 +22,14 @@
 	  font-weight: bold;
 	}
 	body{
-		background-image:url('Fetenationale17734.jpg');
+
+		background-image: linear-gradient(to right top, #0b6b7a, #00918b, #00b57f, #6fd558, #d8eb12);
+		margin:0;
+		background-size: contain;	
 		background-repeat: no-repeat;
-		background-size: cover;	
 	}
 	h1{
-		background-color: tomato;
+	
 		font-family: 'Lobster'	;
 	}
 	
@@ -45,7 +47,7 @@
 					<div class="col-2">
 						<div class="card" style="width: 22rem; height: 15rem;">
 							<div class="card-body">
-								<h5 class="card-title" style="background-color: tomato;"><pre>{{record.fields.nom}}</pre></h5><!--Rajoutez fields + le nom du champ pour afficher une valeur spécifique-->
+								<h5 class="card-title" style="background-image: linear-gradient(to right top, #0b6b7a, #00918b, #00b57f, #6fd558, #d8eb12);"><pre>{{record.fields.nom}}</pre></h5><!--Rajoutez fields + le nom du champ pour afficher une valeur spécifique-->
          						<p class="card-text"><pre>{{record.fields.ville}}</pre>
          						<pre>{{record.fields.adresse}}</pre>
          						<pre>{{record.fields.heure_debut}}</pre>
